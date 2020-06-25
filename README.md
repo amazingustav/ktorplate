@@ -1,8 +1,8 @@
-# PoC - Login com Ktor
+# Ktorplate - Template para projetos Ktor
 
 ### Tech stack:
 * Kotlin
-* JDK 11
+* [Koin](https://insert-koin.io/)
 * [Ktor](https://ktor.io)
 * [Kotlin Exposed](https://github.com/JetBrains/Exposed)
 * [Flyway](https://flywaydb.org/)
