@@ -1,13 +1,11 @@
 package br.com.stonks.poc.ktor.web.controller
 
-import br.com.stonks.poc.ktor.web.dto.LoginRequest
-import br.com.stonks.poc.ktor.web.dto.SignUpRequest
 import br.com.stonks.poc.ktor.usecases.service.LoginService
 import br.com.stonks.poc.ktor.user.User
+import br.com.stonks.poc.ktor.web.dto.LoginRequest
+import br.com.stonks.poc.ktor.web.dto.SignUpRequest
 import io.ktor.http.HttpStatusCode
-import io.ktor.util.KtorExperimentalAPI
 
-@KtorExperimentalAPI
 class LoginController(private val loginService: LoginService) {
 
     suspend fun signUp(request: SignUpRequest) = loginService.register(

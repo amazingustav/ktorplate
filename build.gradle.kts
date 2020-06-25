@@ -1,8 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-val ktorVersion = "1.3.2"
-val koinVersion = "1.0.1"
-val kotlinVersion = "1.3.70"
+val koinVersion = "2.1.6"
 
 plugins {
     kotlin("jvm") version "1.3.72"
@@ -27,13 +23,14 @@ subprojects {
         implementation(kotlin("stdlib"))
         implementation(kotlin("reflect"))
 
-        // Ktor dependencies
-        implementation("io.ktor:ktor-server-core:$ktorVersion")
-        implementation("io.ktor:ktor-locations:$ktorVersion")
-        implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-        implementation("org.mindrot:jbcrypt:0.4")
-        implementation("org.koin:koin-ktor:$koinVersion")
+        implementation("com.typesafe:config:1.4.0")
 
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
+        // koin dependencies
+        implementation("org.koin:koin-core:$koinVersion")
+        implementation("org.koin:koin-core-ext:$koinVersion")
+
+        implementation("org.mindrot:jbcrypt:0.4")
         implementation("ch.qos.logback:logback-classic:1.2.1")
 
         // Test suit

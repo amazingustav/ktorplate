@@ -20,10 +20,6 @@ dependencies {
     implementation(project(":persistence"))
     implementation(project(":entity"))
     implementation(project(":web"))
-
-    implementation("io.ktor:ktor-gson:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
 
 tasks.jar {

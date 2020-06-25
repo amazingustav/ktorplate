@@ -1,6 +1,6 @@
 package br.com.stonks.poc.ktor
 
-import br.com.stonks.poc.ktor.application.module
+import br.com.stonks.poc.ktor.web.server.module
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.locations.KtorExperimentalLocationsAPI

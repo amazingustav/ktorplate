@@ -1,4 +1,4 @@
-rootProject.name = "ktor"
+rootProject.name = "ktorplate"
 
 include(
     "application",
