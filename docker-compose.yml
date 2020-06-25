@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  db:
+    container_name: "stonks_postgres"
+    image: "postgres:alpine"
+    environment:
+      POSTGRES_DB: "opera"
+      POSTGRES_USER: "local"
+      POSTGRES_PASSWORD: "local"
+    ports:
+      - "5432:5432"
+  api:
+    container_name: "stonks_api"
+    network_mode: host
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: "jdbc:postgresql://localhost:5432/opera"
+      DB_USER: "local"
+      DB_PASSWORD: "local"
+    depends_on:
+      - db

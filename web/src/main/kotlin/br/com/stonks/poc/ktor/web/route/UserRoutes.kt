@@ -1,0 +1,34 @@
+package br.com.stonks.poc.ktor.web.route
+
+import br.com.stonks.poc.ktor.web.controller.UserController
+import io.ktor.application.call
+import io.ktor.auth.authenticate
+import io.ktor.locations.KtorExperimentalLocationsAPI
+import io.ktor.locations.Location
+import io.ktor.locations.get
+import io.ktor.response.respond
+import io.ktor.routing.Routing
+import io.ktor.routing.get
+import io.ktor.routing.route
+import io.ktor.util.KtorExperimentalAPI
+import org.koin.ktor.ext.inject
+
+@KtorExperimentalAPI
+@KtorExperimentalLocationsAPI
+fun Routing.userApis() {
+    val userController: UserController by inject()
+
+    authenticate {
+        route("/users") {
+            get { call.respond(userController.getUsers()) }
+
+            get<UserParam> {
+                call.respond(userController.getUserByEmail(this.context.parameters["userEmail"].toString()))
+            }
+        }
+    }
+}
+
+@KtorExperimentalLocationsAPI
+@Location("/{userEmail}")
+data class UserParam(val userEmail: String)
