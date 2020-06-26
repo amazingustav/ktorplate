@@ -10,10 +10,8 @@ import io.ktor.response.respond
 import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.route
-import io.ktor.util.KtorExperimentalAPI
 import org.koin.ktor.ext.inject
 
-@KtorExperimentalAPI
 @KtorExperimentalLocationsAPI
 fun Routing.userApis() {
     val userController: UserController by inject()

@@ -1,21 +1,19 @@
 package br.com.stonks.poc.ktor.usecases.service
 
+import br.com.stonks.poc.ktor.exception.NotFoundException
 import br.com.stonks.poc.ktor.exception.UnauthorizedException
 import br.com.stonks.poc.ktor.usecases.adapter.UserAdapter
 import br.com.stonks.poc.ktor.usecases.config.JWTCredential
 import br.com.stonks.poc.ktor.user.User
-import io.ktor.application.ApplicationEnvironment
-import io.ktor.features.NotFoundException
-import io.ktor.util.KtorExperimentalAPI
+import com.typesafe.config.Config
 import org.mindrot.jbcrypt.BCrypt
 
-@KtorExperimentalAPI
 class LoginService(
-    environment: ApplicationEnvironment,
+    config: Config,
     private val userAdapter: UserAdapter
 ) {
 
-    private val credential = JWTCredential(environment.config.property("jwt.secret").getString())
+    private val credential = JWTCredential(config.getString("jwt.secret"))
 
     suspend fun register(user: User): Long = userAdapter.save(user)
 

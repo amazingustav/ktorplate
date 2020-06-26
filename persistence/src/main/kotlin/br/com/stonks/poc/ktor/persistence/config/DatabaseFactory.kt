@@ -3,20 +3,17 @@ package br.com.stonks.poc.ktor.persistence.config
 import com.typesafe.config.ConfigFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.config.HoconApplicationConfig
-import io.ktor.util.KtorExperimentalAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
-@KtorExperimentalAPI
 object DatabaseFactory {
-    private val env = HoconApplicationConfig(ConfigFactory.load())
-    private val dbUrl = env.property("db.jdbcUrl").getString()
-    private val dbUser = env.property("db.dbUser").getString()
-    private val dbPassword = env.property("db.dbPassword").getString()
+    private val env = ConfigFactory.load()
+    private val dbUrl = env.getString("db.jdbcUrl")
+    private val dbUser = env.getString("db.dbUser")
+    private val dbPassword = env.getString("db.dbPassword")
 
     fun init() {
         Database.connect(dataSource())
