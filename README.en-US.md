@@ -5,7 +5,7 @@
 * Kotlin
 * [Koin](https://insert-koin.io/)
 * [Ktor](https://ktor.io)
-* [Kotlin Exposed](https://github.com/JetBrains/Exposed)
+* [JetBrains Exposed](https://github.com/JetBrains/Exposed)
 * [Flyway](https://flywaydb.org/)
 * PostgreSQL
 
