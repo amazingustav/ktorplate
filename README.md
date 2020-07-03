@@ -1,3 +1,4 @@
+[English README](/README-us.md)
 # Ktorplate - Template para projetos Ktor
 
 ### Tech stack:
@@ -10,9 +11,9 @@
 
 Este projeto obedece as regras da [Arquitetura Limpa (Clean Architecture)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) e está organizado da seguinte maneira:
 ```bash
-|-- application -> Módulo principal, onde se encontra o framework que a aplicação utiliza. Enxerga e orquestra todos os outros módulos
-|-- persistence -> Persistência, interface com banco de dados. Faz a integração com o banco de dados ou qualquer outro tipo de storage. Reconhece os módulos "entity" e "usecase"
-|-- web         -> Controllers e APIs, um Web Adapter. Reconhece os módulos "entity" e "usecase"
+|-- application -> Módulo principal, responsável por injeções de dependências e contextos. Enxerga e orquestra todos os outros módulos
+|-- persistence -> Faz a integração e interface com o banco de dados ou qualquer outro tipo de armazenamento de dados. Reconhece os módulos "entity" e "usecase"
+|-- web         -> Web Adapter, onde expomos a porta de entrada da aplicação (API, evento, sockets...). Reconhece os módulos "entity" e "usecase"
 |-- usecase     -> Regras da aplicação. Reconhece apenas o módulo "entity".
 |-- entity      -> Entidades e regras de negócio. Não reconhece nenhum módulo. É o miolo da arquitetura
 ```
