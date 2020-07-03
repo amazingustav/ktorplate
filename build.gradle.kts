@@ -10,8 +10,8 @@ repositories {
 }
 
 subprojects {
-    version = "0.0.1"
-    group = "br.com.stonks.poc"
+    version = "1.0.0"
+    group = "br.com.amz"
 
     apply(plugin = "kotlin")
 
