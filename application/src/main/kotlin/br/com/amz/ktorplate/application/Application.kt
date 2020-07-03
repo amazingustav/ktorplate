@@ -1,10 +1,10 @@
 package br.com.amz.ktorplate.application
 
 import br.com.amz.ktorplate.persistence.config.DatabaseFactory
-import br.com.stonks.poc.ktor.persistence.config.repositoryModule
-import br.com.stonks.poc.ktor.usecases.config.serviceModule
-import br.com.stonks.poc.ktor.web.config.controllerModule
-import br.com.stonks.poc.ktor.web.server.ServerBoot
+import br.com.amz.ktorplate.persistence.config.repositoryModule
+import br.com.amz.ktorplate.usecases.config.serviceModule
+import br.com.amz.ktorplate.web.config.controllerModule
+import br.com.amz.ktorplate.web.server.ServerBoot
 import org.koin.core.context.startKoin
 
 class Application {
@@ -21,7 +21,7 @@ class Application {
                 )
             }
 
-            _root_ide_package_.br.com.amz.ktorplate.persistence.config.DatabaseFactory.init()
+            DatabaseFactory.init()
             ServerBoot.boot(args)
         }
     }

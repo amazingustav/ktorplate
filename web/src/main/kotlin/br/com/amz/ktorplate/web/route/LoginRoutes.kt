@@ -11,7 +11,6 @@ import io.ktor.routing.post
 import io.ktor.util.KtorExperimentalAPI
 import org.koin.ktor.ext.inject
 
-@KtorExperimentalAPI
 fun Routing.loginApis() {
     val loginController: LoginController by inject()
 
