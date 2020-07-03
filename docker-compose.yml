@@ -1,22 +1,22 @@
 version: "3.3"
 services:
   db:
-    container_name: "stonks_postgres"
+    container_name: "ktorplate_db"
     image: "postgres:alpine"
     environment:
-      POSTGRES_DB: "opera"
+      POSTGRES_DB: "ktorplate"
       POSTGRES_USER: "local"
       POSTGRES_PASSWORD: "local"
     ports:
       - "5432:5432"
   api:
-    container_name: "stonks_api"
+    container_name: "ktorplate_api"
     network_mode: host
     build: .
     ports:
       - "8080:8080"
     environment:
-      DB_URL: "jdbc:postgresql://localhost:5432/opera"
+      DB_URL: "jdbc:postgresql://localhost:5432/ktorplate"
       DB_USER: "local"
       DB_PASSWORD: "local"
     depends_on:

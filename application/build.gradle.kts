@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClassName = "br.com.stonks.poc.ktor.application.Application"
+    mainClassName = "br.com.amz.ktorplate.application.Application"
 
     applicationDefaultJvmArgs = listOf(
         "-server",
