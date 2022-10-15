@@ -48,8 +48,8 @@ subprojects {
 
         implementation("com.typesafe:config:$configTypesafeVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinVersion")
-        implementation("org.koin:koin-core:$koinVersion")
-        implementation("org.koin:koin-core-ext:$koinVersion")
+        implementation("io.insert-koin:koin-core:$koinVersion")
+        implementation("io.insert-koin:koin-core-ext:$koinVersion")
         implementation("org.mindrot:jbcrypt:$jbcryptVersion")
         implementation("ch.qos.logback:logback-classic:$logbackVersion")
 

@@ -9,7 +9,7 @@ dependencies {
     implementation("io.ktor:ktor-gson:$ktorVersion")
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-    implementation("org.koin:koin-ktor:$koinVersion")
+    implementation("io.insert-koin:koin-ktor:$koinVersion")
 
     testImplementation("io.ktor:ktor-server-tests:$ktorVersion")
 }
