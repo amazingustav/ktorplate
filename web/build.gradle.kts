@@ -1,5 +1,5 @@
-val ktorVersion = "1.3.2"
-val koinVersion = "2.1.6"
+val ktorVersion = findProperty("ktor.version")
+val koinVersion = findProperty("koin.version")
 
 dependencies {
     implementation(project(":usecase"))

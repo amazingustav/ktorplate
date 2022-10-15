@@ -1,18 +1,7 @@
-val ktorVersion = "1.3.2"
+val ktorVersion = findProperty("ktor.version")
 
 plugins {
     application
-}
-
-application {
-    mainClassName = "br.com.amz.ktorplate.application.Application"
-
-    applicationDefaultJvmArgs = listOf(
-        "-server",
-        "-XX:+UseNUMA",
-        "-XX:+UseParallelGC",
-        "-Duser.timezone=America/Sao_Paulo"
-    )
 }
 
 dependencies {
@@ -22,15 +11,28 @@ dependencies {
     implementation(project(":web"))
 }
 
-tasks.jar {
-    archiveBaseName.set("app")
-    archiveVersion.set("")
+application {
+    mainClass.set("br.com.amz.ktorplate.application.Application")
 
-    manifest {
-        attributes(mapOf("Main-Class" to application.mainClassName))
+    applicationDefaultJvmArgs = listOf(
+        "-server",
+        "-XX:+UseNUMA",
+        "-XX:+UseParallelGC",
+        "-Duser.timezone=America/Sao_Paulo"
+    )
+}
+
+tasks {
+    jar {
+        archiveBaseName.set("app")
+        archiveVersion.set("")
+
+        manifest {
+            attributes(mapOf("Main-Class" to application.mainClassName))
+        }
+
+        from(Callable {
+            configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) }
+        })
     }
-
-    from(Callable {
-        configurations["runtimeClasspath"].map { if (it.isDirectory) it else zipTree(it) }
-    })
 }
