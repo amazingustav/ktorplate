@@ -5,7 +5,6 @@ plugins {
 }
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -14,10 +13,6 @@ subprojects {
     group = "br.com.amz"
 
     apply(plugin = "kotlin")
-
-    repositories {
-        jcenter()
-    }
 
     dependencies {
         implementation(kotlin("stdlib"))
