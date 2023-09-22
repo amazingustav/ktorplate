@@ -29,7 +29,7 @@ subprojects {
         implementation("ch.qos.logback:logback-classic:1.2.1")
 
         // Test suit
-        testImplementation("junit:junit:4.12")
+        testImplementation("junit:junit")
     }
 
     tasks.compileKotlin {
