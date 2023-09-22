@@ -2,7 +2,7 @@
 # Ktorplate - Template para projetos Ktor
 
 ### Tech stack:
-* Kotlin
+* Kotlin (JDK 17)
 * [Koin](https://insert-koin.io/)
 * [Ktor](https://ktor.io)
 * [JetBrains Exposed](https://github.com/JetBrains/Exposed)
@@ -36,6 +36,3 @@ docker-compose stop
 
 ### Versionamento da Base
 Todas as alterações na base são versionadas com o [flyway](https://flywaydb.org/), então a cada alteração (DDL/DML) da base, é necessário adicionar um novo arquivo na pasta `resources/db/migration` contendo sua alteração. O build do gradle se encarregará de aplicar as alterações graças ao plugin do flyway.
-
-## ISSUES
-* Não tem testes (extremo vai cavalo)

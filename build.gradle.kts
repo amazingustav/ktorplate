@@ -41,13 +41,13 @@ subprojects {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjvm-default=enable")
             allWarningsAsErrors = true
-            jvmTarget = "11"
+            jvmTarget = "17"
         }
     }
 
     tasks.compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "17"
         }
     }
 
