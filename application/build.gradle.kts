@@ -1,5 +1,3 @@
-val ktorVersion = "1.3.2"
-
 plugins {
     application
 }
