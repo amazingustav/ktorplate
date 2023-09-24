@@ -21,6 +21,10 @@ subprojects {
 
     apply(plugin = "kotlin")
 
+    repositories {
+        mavenCentral()
+    }
+
     dependencies {
         implementation(kotlin("stdlib"))
         implementation(kotlin("reflect"))
@@ -30,8 +34,7 @@ subprojects {
         implementation("ch.qos.logback:logback-classic:$logbackVersion")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-        implementation("org.koin:koin-core:$koinVersion")
-        implementation("org.koin:koin-core-ext:$koinVersion")
+        implementation("io.insert-koin:koin-core:$koinVersion")
 
         testImplementation("junit:junit:$junitVersion")
     }
