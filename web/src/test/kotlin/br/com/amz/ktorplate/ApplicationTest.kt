@@ -1,5 +1,6 @@
 package br.com.amz.ktorplate
 
+import br.com.amz.ktorplate.web.server.configureAuthentication
 import br.com.amz.ktorplate.web.server.configureRouting
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
@@ -13,6 +14,7 @@ class ApplicationTest {
     @Test
     fun testRoot() = testApplication {
         application {
+            configureAuthentication()
             configureRouting()
         }
 

@@ -47,15 +47,7 @@ fun Application.module() {
         }
     }
 
-    authentication {
-        jwt {
-            val jwtSecret = env.getString("jwt.secret")
-
-            JWTCredential(jwtSecret).also { verifier(it.verifier) }
-            validate { JWTPrincipal(it.payload) }
-        }
-    }
-
+    configureAuthentication()
     configureRouting()
 }
 
@@ -67,5 +59,16 @@ fun Application.configureRouting() {
 
         loginApis()
         userApis()
+    }
+}
+
+fun Application.configureAuthentication() {
+    authentication {
+        jwt {
+            val jwtSecret = env.getString("jwt.secret")
+
+            verifier(JWTCredential(jwtSecret).verifier)
+            validate { JWTPrincipal(it.payload) }
+        }
     }
 }
