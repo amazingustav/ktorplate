@@ -1,18 +1,17 @@
 package br.com.amz.ktorplate.web.route
 
 import br.com.amz.ktorplate.web.controller.UserController
-import io.ktor.application.call
-import io.ktor.auth.authenticate
-import io.ktor.locations.KtorExperimentalLocationsAPI
-import io.ktor.locations.Location
-import io.ktor.locations.get
-import io.ktor.response.respond
-import io.ktor.routing.Routing
-import io.ktor.routing.get
-import io.ktor.routing.route
+import io.ktor.resources.Resource
+import io.ktor.server.application.call
+import io.ktor.server.auth.authenticate
+import io.ktor.server.resources.get
+import io.ktor.server.response.respond
+import io.ktor.server.routing.Routing
+import io.ktor.server.routing.get
+import io.ktor.server.routing.route
+import kotlinx.serialization.Serializable
 import org.koin.ktor.ext.inject
 
-@KtorExperimentalLocationsAPI
 fun Routing.userApis() {
     val userController: UserController by inject()
 
@@ -21,12 +20,12 @@ fun Routing.userApis() {
             get { call.respond(userController.getUsers()) }
 
             get<UserParam> {
-                call.respond(userController.getUserByEmail(this.context.parameters["userEmail"].toString()))
+                call.respond(userController.getUserByEmail(this.context.parameters["email"]!!))
             }
         }
     }
 }
 
-@KtorExperimentalLocationsAPI
-@Location("/{userEmail}")
-data class UserParam(val userEmail: String)
+@Serializable
+@Resource("/{email}")
+data class UserParam(val email: String)

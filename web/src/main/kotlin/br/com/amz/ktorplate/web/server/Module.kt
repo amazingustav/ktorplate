@@ -6,46 +6,64 @@ import br.com.amz.ktorplate.exception.UnauthorizedException
 import br.com.amz.ktorplate.usecases.config.JWTCredential
 import br.com.amz.ktorplate.web.route.loginApis
 import br.com.amz.ktorplate.web.route.userApis
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.auth.Authentication
-import io.ktor.auth.jwt.JWTPrincipal
-import io.ktor.auth.jwt.jwt
-import io.ktor.features.ContentNegotiation
-import io.ktor.features.StatusPages
-import io.ktor.gson.gson
+import com.typesafe.config.ConfigFactory
 import io.ktor.http.HttpStatusCode
-import io.ktor.locations.KtorExperimentalLocationsAPI
-import io.ktor.locations.Locations
-import io.ktor.response.respond
-import io.ktor.routing.get
-import io.ktor.routing.routing
-import io.ktor.util.KtorExperimentalAPI
+import io.ktor.serialization.kotlinx.json.json
+import io.ktor.server.application.Application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
+import io.ktor.server.auth.authentication
+import io.ktor.server.auth.jwt.JWTPrincipal
+import io.ktor.server.auth.jwt.jwt
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.plugins.swagger.swaggerUI
+import io.ktor.server.resources.Resources
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondText
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 
-@KtorExperimentalLocationsAPI
-@KtorExperimentalAPI
+private val env = ConfigFactory.load()
+
 fun Application.module() {
-    install(Locations)
+    install(Resources)
+
     install(ContentNegotiation) {
-        gson { setPrettyPrinting() }
+        json()
     }
 
     install(StatusPages) {
-        exception<UnauthorizedException> { call.respond(HttpStatusCode.Unauthorized) }
-        exception<NotFoundException> { call.respond(HttpStatusCode.NotFound) }
-        exception<PreConditionFailedException> { call.respond(HttpStatusCode.PreconditionFailed) }
+        exception<UnauthorizedException> { call, cause ->
+            call.respondText(text = "401: $cause", status = HttpStatusCode.Unauthorized)
+        }
+
+        exception<NotFoundException> { call, cause ->
+            call.respondText(text = "404: $cause", status = HttpStatusCode.NotFound)
+        }
+
+        exception<PreConditionFailedException> { call, cause ->
+            call.respondText(text = "412: $cause", status = HttpStatusCode.PreconditionFailed)
+        }
     }
 
-    install(Authentication) {
+    authentication {
         jwt {
-            JWTCredential(environment.config.property("jwt.secret").getString()).also { verifier(it.verifier) }
+            val jwtSecret = env.getString("jwt.secret")
+
+            JWTCredential(jwtSecret).also { verifier(it.verifier) }
             validate { JWTPrincipal(it.payload) }
         }
     }
 
+    configureRouting()
+}
+
+fun Application.configureRouting() {
     routing {
         get("/health") { call.respond(mapOf("status" to "OK")) }
+
+        swaggerUI(path = "openapi")
 
         loginApis()
         userApis()
