@@ -23,9 +23,10 @@ dependencies {
 tasks.jar {
     archiveBaseName.set("app")
     archiveVersion.set("")
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
-        attributes(mapOf("Main-Class" to application.mainClassName))
+        attributes(mapOf("Main-Class" to application.mainClass))
     }
 
     from(Callable {
