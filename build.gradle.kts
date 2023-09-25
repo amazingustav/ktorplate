@@ -1,11 +1,17 @@
-val koinVersion = "2.1.6"
+val configVersion = findProperty("config.version").toString()
+val coroutinesVersion = findProperty("coroutines.version").toString()
+val jbcryptVersion = findProperty("jbcrypt.version").toString()
+val logbackVersion = findProperty("logback.version").toString()
+val koinVersion = findProperty("koin.version").toString()
+val jvmTargetVersion = findProperty("jvm.version").toString()
+val kotlinVersion = findProperty("kotlin.version").toString()
 
 plugins {
-    kotlin("jvm") version "1.3.72"
+    val kotlinVersion = "1.9.0"
+    kotlin("jvm") version kotlinVersion
 }
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -16,42 +22,45 @@ subprojects {
     apply(plugin = "kotlin")
 
     repositories {
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
         implementation(kotlin("stdlib"))
         implementation(kotlin("reflect"))
 
-        implementation("com.typesafe:config:1.4.0")
+        implementation("com.typesafe:config:$configVersion")
+        implementation("org.mindrot:jbcrypt:$jbcryptVersion")
+        implementation("ch.qos.logback:logback-classic:$logbackVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
-        // koin dependencies
-        implementation("org.koin:koin-core:$koinVersion")
-        implementation("org.koin:koin-core-ext:$koinVersion")
+        implementation("io.insert-koin:koin-core:$koinVersion")
 
-        implementation("org.mindrot:jbcrypt:0.4")
-        implementation("ch.qos.logback:logback-classic:1.2.1")
-
-        // Test suit
-        testImplementation("junit:junit:4.12")
+        testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
     }
 
     tasks.compileKotlin {
         kotlinOptions {
-            freeCompilerArgs = listOf("-Xjvm-default=enable")
             allWarningsAsErrors = true
-            jvmTarget = "11"
+            jvmTarget = jvmTargetVersion
         }
     }
 
     tasks.compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = jvmTargetVersion
         }
     }
 
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
+    }
+}
+
+configurations {
+    all {
+        resolutionStrategy {
+            failOnVersionConflict()
+        }
     }
 }

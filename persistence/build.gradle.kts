@@ -1,12 +1,18 @@
+val hikariVersion = findProperty("hikari.version").toString()
+val postgresqlVersion = findProperty("postgresql.version").toString()
+val exposedVersion = findProperty("exposed.version").toString()
+val flywayVersion = findProperty("flyway.version").toString()
+
 plugins {
-    id("org.flywaydb.flyway") version "6.4.0"
+    val flywayVersion = "6.4.0"
+    id("org.flywaydb.flyway") version flywayVersion
 }
 
 dependencies {
-    implementation("com.zaxxer:HikariCP:3.4.3")
-    implementation("org.postgresql:postgresql:42.2.2")
-    implementation("org.jetbrains.exposed:exposed:0.17.7")
-    implementation("org.flywaydb:flyway-core:6.4.0")
+    implementation("com.zaxxer:HikariCP:$hikariVersion")
+    implementation("org.postgresql:postgresql:$postgresqlVersion")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
 
     implementation(project(":usecase"))
     implementation(project(":entity"))

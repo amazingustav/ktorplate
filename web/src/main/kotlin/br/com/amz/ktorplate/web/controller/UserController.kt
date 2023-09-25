@@ -3,7 +3,7 @@ package br.com.amz.ktorplate.web.controller
 import br.com.amz.ktorplate.exception.PreConditionFailedException
 import br.com.amz.ktorplate.usecases.service.UserService
 import br.com.amz.ktorplate.user.User
-import io.ktor.features.NotFoundException
+import io.ktor.server.plugins.NotFoundException
 
 class UserController(private val userService: UserService) {
 

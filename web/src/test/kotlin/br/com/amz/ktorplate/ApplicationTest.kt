@@ -1,28 +1,26 @@
 package br.com.amz.ktorplate
 
-import br.com.amz.ktorplate.web.server.module
-import io.ktor.http.HttpMethod
+import br.com.amz.ktorplate.web.server.configureAuthentication
+import br.com.amz.ktorplate.web.server.configureRouting
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
-import io.ktor.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.testing.handleRequest
-import io.ktor.server.testing.withTestApplication
-import io.ktor.util.KtorExperimentalAPI
-import org.junit.Ignore
-import org.junit.Test
+import io.ktor.server.testing.testApplication
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@KtorExperimentalAPI
-@KtorExperimentalLocationsAPI
 class ApplicationTest {
 
-    @Ignore
     @Test
-    fun testRoot() {
-        withTestApplication({ module() }) {
-            handleRequest(HttpMethod.Get, "/health").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("{\"status\":\"OK\"}", response.content)
-            }
+    fun testRoot() = testApplication {
+        application {
+            configureAuthentication()
+            configureRouting()
+        }
+
+        client.get("/health").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            assertEquals("\"status\": \"OK\"", bodyAsText())
         }
     }
 }

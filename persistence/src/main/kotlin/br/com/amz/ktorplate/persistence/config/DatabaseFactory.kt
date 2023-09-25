@@ -4,10 +4,9 @@ import com.typesafe.config.ConfigFactory
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.flywaydb.core.Flyway
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
 object DatabaseFactory {
     private val env = ConfigFactory.load()
@@ -45,8 +44,5 @@ object DatabaseFactory {
      * In order to help make non-blocking queries, this function starts a coroutine for each
      * query that runs on a special thread pool "Dispatcher.IO", that is optimised for IO heavy operations.
      * */
-    suspend fun <T> query(block: () -> T): T =
-        withContext(Dispatchers.IO) {
-            transaction { block() }
-        }
+    suspend fun <T> query(block: suspend () -> T): T = newSuspendedTransaction(Dispatchers.IO) { block() }
 }

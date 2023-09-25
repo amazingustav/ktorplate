@@ -1,11 +1,9 @@
-val ktorVersion = "1.3.2"
-
 plugins {
     application
 }
 
 application {
-    mainClassName = "br.com.amz.ktorplate.application.Application"
+    mainClass.set("br.com.amz.ktorplate.application.Application")
 
     applicationDefaultJvmArgs = listOf(
         "-server",
@@ -25,9 +23,10 @@ dependencies {
 tasks.jar {
     archiveBaseName.set("app")
     archiveVersion.set("")
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
     manifest {
-        attributes(mapOf("Main-Class" to application.mainClassName))
+        attributes(mapOf("Main-Class" to application.mainClass))
     }
 
     from(Callable {

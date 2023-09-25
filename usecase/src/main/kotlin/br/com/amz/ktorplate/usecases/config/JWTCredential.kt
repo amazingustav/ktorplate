@@ -3,13 +3,14 @@ package br.com.amz.ktorplate.usecases.config
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import java.util.Date
+import java.util.UUID
 
 class JWTCredential(secret: String) {
     private val algorithm = Algorithm.HMAC256(secret)
     val verifier = JWT.require(algorithm).build()!!
 
-    fun sign(userId: Long) = JWT.create()
-        .withClaim("userId", userId)
+    fun sign(userId: UUID) = JWT.create()
+        .withClaim("userId", userId.toString())
         .withExpiresAt(getExpiration())
         .sign(algorithm)!!
 
