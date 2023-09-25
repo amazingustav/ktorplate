@@ -7,7 +7,7 @@ val koinVersion = findProperty("koin.version").toString()
 val jvmTargetVersion = findProperty("jvm.version").toString()
 
 plugins {
-    val kotlinVersion = "1.3.72"
+    val kotlinVersion = "1.9.0"
     kotlin("jvm") version kotlinVersion
 }
 
@@ -41,7 +41,6 @@ subprojects {
 
     tasks.compileKotlin {
         kotlinOptions {
-            freeCompilerArgs = listOf("-Xjvm-default=enable")
             allWarningsAsErrors = true
             jvmTarget = jvmTargetVersion
         }
@@ -55,5 +54,13 @@ subprojects {
 
     sourceSets {
         getByName("main").java.srcDirs("src/main/kotlin")
+    }
+}
+
+configurations {
+    all {
+        resolutionStrategy {
+            failOnVersionConflict()
+        }
     }
 }
