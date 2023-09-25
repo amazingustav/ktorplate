@@ -2,9 +2,9 @@ val configVersion = findProperty("config.version").toString()
 val coroutinesVersion = findProperty("coroutines.version").toString()
 val jbcryptVersion = findProperty("jbcrypt.version").toString()
 val logbackVersion = findProperty("logback.version").toString()
-val junitVersion = findProperty("junit.version").toString()
 val koinVersion = findProperty("koin.version").toString()
 val jvmTargetVersion = findProperty("jvm.version").toString()
+val kotlinVersion = findProperty("kotlin.version").toString()
 
 plugins {
     val kotlinVersion = "1.9.0"
@@ -36,7 +36,7 @@ subprojects {
 
         implementation("io.insert-koin:koin-core:$koinVersion")
 
-        testImplementation("junit:junit:$junitVersion")
+        testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
     }
 
     tasks.compileKotlin {
