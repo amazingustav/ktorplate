@@ -6,6 +6,7 @@ import br.com.amz.ktorplate.usecases.adapter.UserAdapter
 import br.com.amz.ktorplate.usecases.config.JWTCredential
 import br.com.amz.ktorplate.user.User
 import com.typesafe.config.Config
+import java.util.UUID
 import org.mindrot.jbcrypt.BCrypt
 
 class LoginService(
@@ -15,7 +16,7 @@ class LoginService(
 
     private val credential = JWTCredential(config.getString("jwt.secret"))
 
-    suspend fun register(user: User): Long = userAdapter.save(user)
+    suspend fun register(user: User): UUID = userAdapter.save(user)
 
     @Throws(UnauthorizedException::class)
     suspend fun login(user: User): String {
