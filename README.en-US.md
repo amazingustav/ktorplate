@@ -2,7 +2,7 @@
 # Ktorplate - Template Ktor project
 
 ### Tech stack:
-* Kotlin (JDK 17)
+* Kotlin (JDK 11)
 * [Koin](https://insert-koin.io/)
 * [Ktor](https://ktor.io)
 * [JetBrains Exposed](https://github.com/JetBrains/Exposed)
