@@ -63,7 +63,7 @@ fun Application.configureRouting() {
     routing {
         get("/health") { call.respond(mapOf("status" to "OK")) }
 
-        swaggerUI(path = "openapi")
+        swaggerUI(path = "/swagger")
 
         loginApis()
         userApis()
