@@ -11,7 +11,7 @@ plugins {
 dependencies {
     implementation("com.zaxxer:HikariCP:$hikariVersion")
     implementation("org.postgresql:postgresql:$postgresqlVersion")
-    implementation("org.jetbrains.exposed:exposed:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.flywaydb:flyway-core:$flywayVersion")
 
     implementation(project(":usecase"))

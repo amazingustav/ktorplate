@@ -1,6 +1,6 @@
 package br.com.amz.ktorplate.persistence.repository
 
-import br.com.amz.ktorplate.persistence.config.DatabaseFactory
+import br.com.amz.ktorplate.persistence.config.DatabaseFactory.query
 import br.com.amz.ktorplate.persistence.entity.Users
 import br.com.amz.ktorplate.persistence.utils.toUser
 import br.com.amz.ktorplate.usecases.adapter.UserAdapter
@@ -11,15 +11,15 @@ import org.jetbrains.exposed.sql.selectAll
 import org.mindrot.jbcrypt.BCrypt
 
 class UserRepository : UserAdapter {
-    override suspend fun findAll() = DatabaseFactory.query { Users.selectAll().map { it.toUser() } }
+    override suspend fun findAll() = query { Users.selectAll().map { it.toUser() } }
 
-    override suspend fun findByEmail(email: String) = DatabaseFactory.query {
+    override suspend fun findByEmail(email: String) = query {
         Users.select { (Users.email eq email) }
             .mapNotNull { it.toUser() }
             .singleOrNull()
     }
 
-    override suspend fun save(user: User) = DatabaseFactory.query {
+    override suspend fun save(user: User) = query {
         Users.insert {
             it[name] = user.name ?: ""
             it[email] = user.email
